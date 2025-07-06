@@ -14,7 +14,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
+app.get('/ping', (req, res) => {
+    res.send('pong');
+  });
+  
 app.post('/save', (req, res) => {
   const { filename, data } = req.body;
   const filePath = path.join(__dirname, filename || `mail_${Date.now()}.html`);
