@@ -23,6 +23,7 @@ app.get('/ping', (req, res) => {
   });
 
 app.post('/save', (req, res) => {
+    console.log("req.headers", req.headers);
   const { filename, data } = req.body;
   const filePath = path.join(__dirname, filename || `mail_${Date.now()}.html`);
   fs.writeFile(filePath, data, (err) => {
