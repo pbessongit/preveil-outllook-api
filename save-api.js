@@ -25,19 +25,21 @@ app.get('/ping', (req, res) => {
     res.send('pong');
   });
 
-app.post('/save', (req, res) => {
-    console.log("req.headers", req.headers);
-  const { filename, data } = req.body;
-  const filePath = path.join(__dirname, filename || `mail_${Date.now()}.html`);
-  fs.writeFile(filePath, data, (err) => {
-    if (err) {
-      console.error("File save failed:", err);
-      return res.status(500).send("Failed to save");
-    }
-    console.log("Saved:", filePath);
-    res.send("OK");
+  app.post('/save', (req, res) => {
+    console.log('POST /save hit at', new Date().toISOString());
+    console.log('req.body:', req.body);
+    const { filename, data } = req.body;
+    const filePath = path.join(__dirname, filename || `mail_${Date.now()}.html`);
+    fs.writeFile(filePath, data, (err) => {
+      if (err) {
+        console.error("File save failed:", err);
+        return res.status(500).send("Failed to save");
+      }
+      console.log("Saved:", filePath);
+      res.send("OK");
+    });
   });
-});
+  
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`PreVeil save server running on https://localhost:${PORT}`));
